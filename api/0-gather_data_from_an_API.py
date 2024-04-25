@@ -23,6 +23,6 @@ if __name__ == "__main__":
             number_of_done_tasks += 1
             completed_task_name += "\t" + i.get("title") + "\n"
 
-    print("Employee {} is done with tasks({}/{})".
+    print("Employee {} is done with tasks({}/{}):".
           format(user, number_of_done_tasks, total_list))
     print(completed_task_name)
