@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """Gather data from an API"""
-import json
 import requests
 from sys import argv
 
 
 if __name__ == "__main__":
-    if argv == 2:
+    if len(argv) < 2:
         exit()
+
     url = "https://jsonplaceholder.typicode.com"
     user = requests.get(f"{url}/users/{argv[1]}").json().get("name")
     total_list = requests.get(f"{url}/todos?userId={argv[1]}").json()
