@@ -9,7 +9,7 @@ if __name__ == "__main__":
     if argv == 2:
         exit()
     url = "https://jsonplaceholder.typicode.com"
-    user = requests.get(f"{url}/users/{argv[1]}").json()
+    user = requests.get(f"{url}/users/{argv[1]}").json().get("name")
     total_list = requests.get(f"{url}/todos?userId={argv[1]}").json()
 
     sum_of_list = len(total_list)
@@ -22,5 +22,5 @@ if __name__ == "__main__":
             completed_task_name += "\t" + i.get("title") + "\n"
 
     print("Employee {} is done with tasks({}/{}):".
-          format(user, number_of_done_tasks, total_list))
+          format(user, number_of_done_tasks, sum_of_list))
     print(completed_task_name)
