@@ -19,7 +19,7 @@ if __name__ == "__main__":
     for i in total_list:
         if i["completed"]:
             number_of_done_tasks += 1
-            completed_task_name += "\t" + i.get("title") + "\n"
+            completed_task_name += "\t " + i.get("title") + "\n"
 
     print("Employee {} is done with tasks({}/{}):".
           format(user, number_of_done_tasks, sum_of_list))
