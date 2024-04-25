@@ -14,12 +14,8 @@ if __name__ == "__main__":
     total_list = requests.get(f"{url}/todos?userId={argv[1]}").json()
 
     sum_of_list = len(total_list)
-
-
-
     writer = csv.writer(open(f"{argv[1]}.csv", "w"), quoting=csv.QUOTE_ALL)
 
     for i in total_list:
         writer.writerow([i.get("userId"), username, i.get("completed"),
-                          i.get("title")])
-
+                         i.get("title")])
