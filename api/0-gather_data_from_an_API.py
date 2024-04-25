@@ -23,4 +23,5 @@ if __name__ == "__main__":
 
     print("Employee {} is done with tasks({}/{}):".
           format(user, number_of_done_tasks, sum_of_list))
-    print(completed_task_name)
+    if completed_task_name != "":
+        print(completed_task_name[:-1])
