@@ -8,11 +8,9 @@ from sys import argv
 if __name__ == "__main__":
     if argv == 2:
         exit()
-
-    user = requests.get(f"https://jsonplaceholder.\
-                        typicode.com/users/{argv[1]}").json().get('name')
-    total_list = requests.get(f"https://jsonplaceholder.\
-                        typicode.com/todos?userId={argv[1]}").json()
+    url = "https://jsonplaceholder.typicode.com"
+    user = requests.get(f"{url}/users/{argv[1]}").json()
+    total_list = requests.get(f"{url}/todos?userId={argv[1]}").json()
 
     sum_of_list = len(total_list)
     number_of_done_tasks = 0
