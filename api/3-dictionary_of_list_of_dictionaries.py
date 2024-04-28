@@ -1,25 +1,40 @@
 #!/usr/bin/python3
-"""Gather data from an API"""
-import csv
+
+"""Dictionary of list of dictionaries"""
+
 import json
 import requests
-from sys import argv
+
+
+def fetch_employee_todo_progress():
+    all_tasks = {}
+
+    user_url = "https://jsonplaceholder.typicode.com/users/"
+    user = requests.get(user_url)
+    user_data = user.json()
+
+    for user in user_data:
+        user_id = user['id']
+        employee_name = user['username']
+        todos_url = "https://jsonplaceholder.typicode.com/todos?userId={}"\
+                    .format(user_id)
+        todos = requests.get(todos_url)
+        todos_data = todos.json()
+
+        datas = []
+        for task in todos_data:
+            data = {
+                    "username": employee_name,
+                    "task": task['title'],
+                    "completed": task['completed']
+                    }
+            datas.append(data)
+        all_tasks[user_id] = datas
+
+    json_file = "todo_all_employees.json"
+    with open(json_file, 'w') as jsonfile:
+        json.dump(all_tasks, jsonfile)
 
 
 if __name__ == "__main__":
-    if len(argv) < 2:
-        exit()
-    new_list = []
-    new_dict = {}
-
-    url = "https://jsonplaceholder.typicode.com"
-    username = requests.get(f"{url}/users/{argv[1]}").json().get("username")
-    total_list = requests.get(f"{url}/todos?userId={argv[1]}").json()
-    sum_of_list = len(total_list)
-
-    for todo in total_list:
-        new_list.append({'username': username,
-                         'task': todo.get('task'),
-                         'completed': todo.get('completed')})
-    new_dict[username.get("userId")] = new_list
-    json.dump(new_dict, open(f"todo_all_employees.json", "w"))
+    fetch_employee_todo_progress()
